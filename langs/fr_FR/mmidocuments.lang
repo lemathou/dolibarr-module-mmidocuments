@@ -1,0 +1,68 @@
+# Copyright (C) 2022 SuperAdmin <contact@calyclay.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#
+# Generic
+#
+
+# Module label 'ModuleMMIDocumentsName'
+ModuleMMIDocumentsName = Documents commerciaux PDF
+# Module description 'ModuleMMIDocumentsDesc'
+ModuleMMIDocumentsDesc = Nouveaux modèles de PDF pour les Propales, Commandes, Factures, Expéditions...
+
+#
+# Admin page
+#
+MMIDocumentsSetup = MMIDocuments setup
+Settings = Settings
+MMIDocumentsSetupPage = MMIDocuments setup page
+DOCUMENT_SHOW_COMPLEMENT = Afficher les informations complémentaires
+MMIDOCUMENTS_MYPARAM1Tooltip = Afficher les CGV, etc. dans les documents PDF : Propales, Commandes, Factures, etc.
+MMI_DOCUMENT_PDF_SEPARATE_CONTACTS = Séparer l'affichage des contacts de livraison et facturation
+MMI_FIELD_CGV_CPV = Ajout du champ CGV/CPV dans les propales, commandes et factures
+
+#
+# About page
+#
+About = About
+MMIDocumentsAbout = About MMIDocuments
+MMIDocumentsAboutPage = MMIDocuments about page
+
+#
+# Sample page
+#
+MyPageName = My page name
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
+
+#
+# Données
+#
+DocumentMoreInfo = Informations complémentaires
+DocumentMoreInfoCGP = Conditions particulières
+DocumentMoreInfoDecennale = Garantie décennale
+PaymentAcompte = Acompte à la signature : %s
+PaymentAcomptePourcent = Acompte à la signature : %s soit %s
+
+#
+# Extrafields
+#
+Extrafield_cgv_cpv = CGV / CPV
+ExtrafieldToolTip_cgv_cpv = Conditions générales / particulières de vente, affichées en bas de document PDF (option dans module MMIDocuments)
+Extrafield_acompte_aff = Afficher Acompte sur Document PDF
