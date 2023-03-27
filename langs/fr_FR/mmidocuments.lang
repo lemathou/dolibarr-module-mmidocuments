@@ -32,6 +32,11 @@ DOCUMENT_SHOW_COMPLEMENT = Afficher les informations complémentaires
 MMIDOCUMENTS_MYPARAM1Tooltip = Afficher les CGV, etc. dans les documents PDF : Propales, Commandes, Factures, etc.
 MMI_DOCUMENT_PDF_SEPARATE_CONTACTS = Séparer l'affichage des contacts de livraison et facturation
 MMI_FIELD_CGV_CPV = Ajout du champ CGV/CPV dans les propales, commandes et factures
+SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME = Cacher poids et volume dans les expéditions
+SHIPPING_PDF_HIDE_BATCH = Cacher les numéros de lot dans les expéditions
+SHIPPING_PDF_HIDE_DELIVERY_DATE = Cacher la date d'expédition dans les expéditions
+MAIN_GENERATE_SHIPMENT_WITH_PICTURE = Affiche les images produit dans les expéditions
+MMI_SHIPPING_PDF_MESSAGE = Message affiché dans le cadre note des expéditions
 
 #
 # About page
