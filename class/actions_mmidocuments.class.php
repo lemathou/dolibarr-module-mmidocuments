@@ -72,69 +72,74 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 			//var_dump($mysoc); die();
 			//var_dump($object->total_tva==0); die();
 
-			// Emétter non assujetti
-			if ($emetteur->country_code == 'FR' && empty($mysoc->tva_assuj)) {
-				if ($mysoc->forme_juridique_code == 92)
-					$vat_info = $langs->transnoentities("VATIsNotUsedForInvoiceAsso");
-				else
-					$vat_info = $langs->transnoentities("VATIsNotUsedForInvoice");
-			}
-			// TVA
-			elseif (!($object->total_tva == 0)) {
-				$vat_info = '';
-			}
-			// Exonération de de TVA
-			else {
-				// Transitaire
-				if (!empty($object->array_options['options_transitaire'])) {
-					$vat_info = 'Exonération de TVA - Transitaire';
+			// Emétteur en France uniquement !
+			if ($emetteur->country_code == 'FR') {
+				// Emetteur non assujetti
+				if (empty($mysoc->tva_assuj)) {
+					// Asso
+					if ($mysoc->forme_juridique_code == 92)
+						$vat_info = $langs->transnoentities("VATIsNotUsedForInvoiceAsso");
+					// Société (AE, etc.)
+					else
+						$vat_info = $langs->transnoentities("VATIsNotUsedForInvoice");
 				}
-				// DOM : Guadeloupe, Guyane, Martinique, Mayotte ou La Réunion
-				elseif (in_array($adresse_fac->country_code, ['FR', 'GF']) && substr($adresse_liv->zip, 0, 2)=='97') {
-					$vat_info = 'Exonération de TVA en application de l’article 294 du code général des impôts (DOM)';
-				}
-				// TOM
-				elseif (in_array($adresse_fac->country_code, ['FR', 'PF']) && substr($adresse_liv->zip, 0, 2)=='98') {
-					$vat_info = 'Exonération de TVA article 262 I du CGI (TOM)';
-				}
-				// UE avec code intra et tout qui va bien
-				elseif ($client->tva_intra && in_array($adresse_fac->country_code, $countries_eu)) {
-					$vat_info = 'Exonération de TVA art. 262 ter, I du CGI';
-				}
-				elseif ($client->tva_intra) {
-					$error = 'Exonération de TVA art. 262 ter, I du CGI => TVA Intra MAIS pays à spécifier';
-				}
-				// UE PRO sans code intra => a spécifier
-				elseif (($client->idprof1 || $client->idprof2) && in_array($adresse_fac->country_code, $countries_eu)) {
-					$error = 'Exonération de TVA art. 262 ter, I du CGI => N°TVA intracom à spécifier';
-				}
-				// Îles (Canaries, etc.)
-				elseif (false) {
-					$vat_info = 'TVA non applicable – art. 259-1 du CGI (îles)';
-				}
-				// UE sans code intra => particulier => tva du pays => ERREUR PAS TVA
-				elseif (in_array($adresse_fac->country_code, $countries_eu)) {
-					$error = 'Exoneration de TVA pour un PARTICULIER en UE !';
-				}
-				// Hors UE
-				elseif ($adresse_fac->country_code && !in_array($adresse_fac->country_code, $countries_eu)) {
-					$vat_info = 'TVA non applicable – art. 259-1 du CGI (Export hors UE)';
-				}
-				// PRO Pays non spécifié
-				elseif ($client->idprof1 || $client->idprof2) {
+				// TVA
+				elseif (!($object->total_tva == 0)) {
 					$vat_info = '';
-					$error = 'Exoneration de TVA pour un PRO, MAIS le pays du client n\'est pas spécifié !';
 				}
-				// Pays non spécifié
+				// Exonération de de TVA
 				else {
-					$vat_info = '';
-					$error = 'Exoneration de TVA pour un PARTICULIER, ET le pays du client n\'est pas spécifié';
+					// Transitaire
+					if (!empty($object->array_options['options_transitaire'])) {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForTransitaire");
+					}
+					// DOM : Guadeloupe, Guyane, Martinique, Mayotte ou La Réunion
+					elseif (in_array($adresse_fac->country_code, ['FR', 'GF']) && substr($adresse_liv->zip, 0, 2)=='97') {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForDOM");
+					}
+					// TOM
+					elseif (in_array($adresse_fac->country_code, ['FR', 'PF']) && substr($adresse_liv->zip, 0, 2)=='98') {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForTOM");
+					}
+					// UE avec code intra et tout qui va bien
+					elseif ($client->tva_intra && in_array($adresse_fac->country_code, $countries_eu)) {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForEU");
+					}
+					elseif ($client->tva_intra) {
+						$error = 'Exonération de TVA art. 262 ter, I du CGI => TVA Intra MAIS pays à spécifier';
+					}
+					// UE PRO sans code intra => a spécifier
+					elseif (($client->idprof1 || $client->idprof2) && in_array($adresse_fac->country_code, $countries_eu)) {
+						$error = 'Exonération de TVA art. 262 ter, I du CGI => N°TVA intracom à spécifier';
+					}
+					// Îles (Canaries, etc.)
+					elseif (false) {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForIslands");
+					}
+					// UE sans code intra => particulier => tva du pays => ERREUR PAS TVA
+					elseif (in_array($adresse_fac->country_code, $countries_eu)) {
+						$error = 'Exoneration de TVA pour un PARTICULIER en UE !';
+					}
+					// Hors UE
+					elseif ($adresse_fac->country_code && !in_array($adresse_fac->country_code, $countries_eu)) {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForExport");
+					}
+					// PRO Pays non spécifié
+					elseif ($client->idprof1 || $client->idprof2) {
+						$vat_info = '';
+						$error = 'Exoneration de TVA pour un PRO, MAIS le pays du client n\'est pas spécifié !';
+					}
+					// Pays non spécifié
+					else {
+						$vat_info = '';
+						$error = 'Exoneration de TVA pour un PARTICULIER, ET le pays du client n\'est pas spécifié';
+					}
 				}
 			}
+			//var_dump($vat_info); die();
 			
 			$this->resprints = $vat_info;
 			$ret = 1;
-			//var_dump($vat_info); die();
 		}
 
 		if (!$error) {

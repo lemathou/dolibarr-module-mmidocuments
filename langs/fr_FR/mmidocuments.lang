@@ -72,3 +72,13 @@ PaymentAcomptePourcent = Acompte à la signature : %s soit %s
 Extrafield_cgv_cpv = CGV / CPV
 ExtrafieldToolTip_cgv_cpv = Conditions générales / particulières de vente, affichées en bas de document PDF (option dans module MMIDocuments)
 Extrafield_acompte_aff = Afficher Acompte sur Document PDF
+
+#
+# VAT
+#
+VATIsNotUsedForTransitaire = Exonération de TVA - Transitaire
+VATIsNotUsedForDOM = Exonération de TVA en application de l’article 294 du code général des impôts (DOM)
+VATIsNotUsedForTOM = Exonération de TVA article 262 I du CGI (TOM)
+VATIsNotUsedForEU = Exonération de TVA art. 262 ter, I du CGI
+VATIsNotUsedForIslands = TVA non applicable – art. 259-1 du CGI (îles)
+VATIsNotUsedForExport = TVA non applicable – art. 259-1 du CGI (Export hors UE)
