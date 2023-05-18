@@ -65,6 +65,7 @@ DocumentMoreInfoCGP = Conditions particulières
 DocumentMoreInfoDecennale = Garantie décennale
 PaymentAcompte = Acompte à la signature : %s
 PaymentAcomptePourcent = Acompte à la signature : %s soit %s
+CreditNotesReceivedBefore = Acomptes précédemment réglés
 
 #
 # Extrafields
@@ -72,6 +73,8 @@ PaymentAcomptePourcent = Acompte à la signature : %s soit %s
 Extrafield_cgv_cpv = CGV / CPV
 ExtrafieldToolTip_cgv_cpv = Conditions générales / particulières de vente, affichées en bas de document PDF (option dans module MMIDocuments)
 Extrafield_acompte_aff = Afficher Acompte sur Document PDF
+Extrafield_avoirs_as_acompte = Afficher les avoirs comme un acompte
+ExtrafieldToolTip_avoirs_as_acompte = Ceci est particulièrement utile lorsqu'on a utilisé un avoir issu d'un acompte pour une facture d'avancement, ce étant la seule façon de gérer le moins salement les choses.
 
 #
 # VAT

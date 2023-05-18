@@ -394,17 +394,13 @@ class modMMIDocuments extends DolibarrModules
 		// Propales
         $extrafields->addExtraField('acompte_aff', $langs->trans('Extrafield_acompte_aff'), 'boolean', 1, 3, 'propal', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_acompte_aff'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
         $extrafields->addExtraField('cgv_cpv', $langs->trans('Extrafield_cgv_cpv'), 'html', 10, NULL, 'propal', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_cgv_cpv'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled && $conf->global->MMI_FIELD_CGV_CPV');
-		//$result1=$extrafields->addExtraField('mmidocuments_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-		//$result2=$extrafields->addExtraField('mmidocuments_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-		//$result3=$extrafields->addExtraField('mmidocuments_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-		//$result4=$extrafields->addExtraField('mmidocuments_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-		//$result5=$extrafields->addExtraField('mmidocuments_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
 
 		// Commandes
         $extrafields->addExtraField('cgv_cpv', $langs->trans('Extrafield_cgv_cpv'), 'html', 10, NULL, 'commande', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_cgv_cpv'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled && $conf->global->MMI_FIELD_CGV_CPV');
 
 		// Factures
         $extrafields->addExtraField('cgv_cpv', $langs->trans('Extrafield_cgv_cpv'), 'html', 10, NULL, 'facture', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_cgv_cpv'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled && $conf->global->MMI_FIELD_CGV_CPV');
+        $extrafields->addExtraField('avoirs_as_acompte', $langs->trans('Extrafield_avoirs_as_acompte'), 'boolean', 1, 3, 'facture', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_avoirs_as_acompte'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
 
 		// Permissions
 		$this->remove($options);
