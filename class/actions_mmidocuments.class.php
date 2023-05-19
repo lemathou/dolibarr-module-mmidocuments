@@ -101,6 +101,10 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 					elseif (in_array($adresse_fac->country_code, ['FR', 'PF']) && substr($adresse_liv->zip, 0, 2)=='98') {
 						$vat_info = $langs->transnoentities("VATIsNotUsedForTOM");
 					}
+					// FR avec code intra et tout qui va bien
+					elseif ($client->tva_intra && $adresse_fac->country_code == 'FR') {
+						$vat_info = $langs->transnoentities("VATIsNotUsedForFR");
+					}
 					// UE avec code intra et tout qui va bien
 					elseif ($client->tva_intra && in_array($adresse_fac->country_code, $countries_eu)) {
 						$vat_info = $langs->transnoentities("VATIsNotUsedForEU");
