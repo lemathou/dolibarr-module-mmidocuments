@@ -103,7 +103,10 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 					}
 					// FR avec code intra et tout qui va bien
 					elseif ($client->tva_intra && $adresse_fac->country_code == 'FR') {
-						$vat_info = $langs->transnoentities("VATIsNotUsedForFR");
+						if (!empty($object->array_options['options_appeloffre']) && !empty($object->array_options['options_appeloffre_soustraitant']))
+							$vat_info = $langs->transnoentities("VATIsNotUsedForFRAppelOffresSSTraitant");
+						else
+							$vat_info = $langs->transnoentities("VATIsNotUsedForFR");
 					}
 					// UE avec code intra et tout qui va bien
 					elseif ($client->tva_intra && in_array($adresse_fac->country_code, $countries_eu)) {
