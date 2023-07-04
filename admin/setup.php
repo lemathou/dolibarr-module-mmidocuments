@@ -36,6 +36,7 @@ $arrayofparameters = array(
 	'MMI_DOCUMENT_PDF_SEPARATE_CONTACTS'=>array('type'=>'yesno','enabled'=>1),
 	'MMI_FIELD_CGV_CPV'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY'=>array('type'=>'yesno','enabled'=>1),
+	'MMI_DOCUMENT_PDF_HEIGHT_CALC'=>array('type'=>'yesno','enabled'=>1),
 );
 
 require_once('../../mmicommon/admin/mmisetup_1.inc.php');

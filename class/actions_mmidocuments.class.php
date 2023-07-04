@@ -156,4 +156,89 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 			return -1;
 		}
 	}
+
+	/**
+	 * Calcul précis de la hauteur des zones du PDF
+	 * en prenant en compte des champs supplémentaires
+	 */
+	function beforePDFCalculation($parameters, &$object, &$action, $hookmanager)
+	{
+		global $langs, $user, $conf;
+		
+		$error = '';
+
+		if ($this->in_context($parameters, 'pdfgeneration')) {
+			$object = $parameters['object'];
+			$object_type = is_object($object) ?$object->element :'';
+
+			if ($object_type=='commande') {
+				$infottot_height = &$parameters['infottot_height'];
+				// Champs de base
+				if (!empty($object->cond_reglement))
+					$infottot_height += 4;
+				if (!empty($object->delivery_date) || !empty($object->availability_code) || !empty($object->availability))
+					$infottot_height += 4;
+				if (empty($object->mode_reglement_code))
+					$infottot_height += 36;
+				elseif (in_array($object->mode_reglement_code, ['VIR']))
+					$infottot_height += 22;
+				elseif (in_array($object->mode_reglement_code, ['CHQ']))
+					$infottot_height += 14;
+				else
+					$infottot_height += 4;
+				// Champs supplémentaires
+				if (!empty($object->shipping_method_id))
+					$infottot_height += 4;
+			}
+		}
+
+		if (!$error) {
+			return isset($ret) ?$ret :0; // or return 1 to replace standard code
+		} else {
+			$this->errors[] = $error;
+			return -1;
+		}
+	}
+
+	function drawInfoTable($parameters, &$pdf, &$action, $hookmanager)
+	{
+		global $langs, $user, $conf;
+		
+		$error = '';
+
+		if ($this->in_context($parameters, 'pdfgeneration')) {
+
+			$pdf = $parameters['pdf'];
+			$object = $parameters['object'];
+			$object_type = is_object($object) ?$object->element :'';
+			//var_dump($object);
+			//var_dump($object_type);
+			$outputlangs = $parameters['outputlangs'];
+			$posxval = $parameters['posxval'];
+			$default_font_size = $parameters['default_font_size'];
+			$marge_gauche = $parameters['marge_gauche'];
+			$posy = $parameters['posy'];
+	
+			if ($object_type=='commande' && !empty($object->shipping_method_id)) {
+				$pdf->SetFont('', 'B', $default_font_size - 2);
+				$pdf->SetXY($marge_gauche, $posy);
+				$titre = html_entity_decode($outputlangs->trans("SendingMethod")).':';
+				$pdf->MultiCell(80, 4, $titre, 0, 'L');
+				$pdf->SetFont('', '', $default_font_size - 2);
+				$pdf->SetXY($posxval, $posy);
+				$code = $outputlangs->getLabelFromKey($this->db, $object->shipping_method_id, 'c_shipment_mode', 'rowid', 'code');
+				$label = $outputlangs->trans("SendingMethod".strtoupper($code));
+				$pdf->MultiCell(80, 4, $label, 0, 'L');
+
+				$parameters['posy'] = $pdf->GetY() + 2;
+			}
+		}
+
+		if (!$error) {
+			return isset($ret) ?$ret :0; // or return 1 to replace standard code
+		} else {
+			$this->errors[] = $error;
+			return -1;
+		}
+	}
 }
