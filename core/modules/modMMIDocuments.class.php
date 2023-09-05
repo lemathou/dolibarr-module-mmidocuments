@@ -391,6 +391,11 @@ class modMMIDocuments extends DolibarrModules
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 
+		// Contacts
+        //$extrafields->addExtraField('tva_intra', $langs->trans('VATIntraShort'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', 1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+        //$extrafields->addExtraField('siren', $langs->trans('SIREN'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', 1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+        $extrafields->addExtraField('siret', $langs->trans('SIRET'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', 1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+
 		// Propales
         $extrafields->addExtraField('acompte_aff', $langs->trans('Extrafield_acompte_aff'), 'boolean', 1, 3, 'propal', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_acompte_aff'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
         $extrafields->addExtraField('cgv_cpv', $langs->trans('Extrafield_cgv_cpv'), 'html', 10, NULL, 'propal', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_cgv_cpv'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled && $conf->global->MMI_FIELD_CGV_CPV');
