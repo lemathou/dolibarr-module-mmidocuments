@@ -67,6 +67,7 @@ DocumentMoreInfoDecennale = Garantie décennale
 PaymentAcompte = Acompte à la signature : %s
 PaymentAcomptePourcent = Acompte à la signature : %s soit %s
 CreditNotesReceivedBefore = Acomptes précédemment réglés
+ToPay = A payer
 
 #
 # Extrafields
