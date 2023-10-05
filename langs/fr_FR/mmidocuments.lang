@@ -38,6 +38,7 @@ SHIPPING_PDF_HIDE_DELIVERY_DATE = Cacher la date d'expédition dans les expédit
 MAIN_GENERATE_SHIPMENT_WITH_PICTURE = Affiche les images produit dans les expéditions
 MMI_SHIPPING_PDF_MESSAGE = Message affiché dans le cadre note des expéditions
 MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY = Gestion de l'exonération de TVA dans les documents (Propales, Commandes, Factures)
+INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW = Afficher la retenue de garantie cumulée sur les factures
 
 #
 # About page
@@ -87,3 +88,5 @@ VATIsNotUsedForFRAppelOffresSSTraitant = TVA due par le preneur assujetti - auto
 VATIsNotUsedForEU = Exonération de TVA art. 262 ter, I du CGI
 VATIsNotUsedForIslands = TVA non applicable – art. 259-1 du CGI (îles)
 VATIsNotUsedForExport = TVA non applicable – art. 259-1 du CGI (Export hors UE)
+
+RetainedWarrantyCumulated = Retenue de garantie cumulée
