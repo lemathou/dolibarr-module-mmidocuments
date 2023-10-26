@@ -28,6 +28,7 @@ require_once '../main_load.inc.php';
 
 $arrayofparameters = array(
 	'DOCUMENT_SHOW_COMPLEMENT'=>array('type'=>'yesno', 'enabled'=>1),
+	'DOCUMENT_COMPLEMENT_TITLE'=>array('type'=>'yesno', 'enabled'=>1),
 	'SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME'=>array('type'=>'yesno','enabled'=>1),
 	'SHIPPING_PDF_HIDE_BATCH'=>array('type'=>'yesno','enabled'=>1), // MMI Hack
 	'SHIPPING_PDF_HIDE_DELIVERY_DATE'=>array('type'=>'yesno','enabled'=>1), // MMI Hack
@@ -35,6 +36,7 @@ $arrayofparameters = array(
 	'MMI_SHIPPING_PDF_MESSAGE'=>array('type'=>'html','enabled'=>1),
 	'MMI_DOCUMENT_PDF_SEPARATE_CONTACTS'=>array('type'=>'yesno','enabled'=>1),
 	'MMI_FIELD_CGV_CPV'=>array('type'=>'yesno','enabled'=>1),
+	'MMIDOCUMENT_CGP_TITLE'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY'=>array('type'=>'yesno','enabled'=>1),
 	'MMI_DOCUMENT_PDF_HEIGHT_CALC'=>array('type'=>'yesno','enabled'=>1),
 	'INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW'=>array('type'=>'yesno','enabled'=>1),
