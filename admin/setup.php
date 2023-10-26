@@ -41,6 +41,7 @@ $arrayofparameters = array(
 	'MMI_DOCUMENT_PDF_HEIGHT_CALC'=>array('type'=>'yesno','enabled'=>1),
 	'INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME'=>array('type'=>'yesno','enabled'=>1),
+	'MMIDOCUMENT_PDF_RENAME_UPPERCASE'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_MYSOC'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_THIRDPARTY'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER'=>array('type'=>'yesno','enabled'=>1),

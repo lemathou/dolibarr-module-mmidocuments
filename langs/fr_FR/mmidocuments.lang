@@ -40,6 +40,7 @@ MMI_SHIPPING_PDF_MESSAGE = Message affiché dans le cadre note des expéditions
 MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY = Gestion de l'exonération de TVA dans les documents (Propales, Commandes, Factures)
 INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW = Afficher la retenue de garantie cumulée sur les factures
 MMIDOCUMENT_PDF_RENAME = Renommer les PDF des documents
+MMIDOCUMENT_PDF_RENAME_UPPERCASE = PDF en majuscule
 MMIDOCUMENT_PDF_RENAME_MYSOC = Ajouter le nom de notre société dans le PDF
 MMIDOCUMENT_PDF_RENAME_THIRDPARTY = Ajouter le nom du client dans le PDF
 MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER = AJouter la référence client dans le PDF
