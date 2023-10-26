@@ -77,6 +77,7 @@ ExtrafieldToolTip_cgv_cpv = Conditions générales / particulières de vente, af
 Extrafield_acompte_aff = Afficher Acompte sur Document PDF
 Extrafield_avoirs_as_acompte = Afficher les avoirs comme un acompte
 ExtrafieldToolTip_avoirs_as_acompte = Ceci est particulièrement utile lorsqu'on a utilisé un avoir issu d'un acompte pour une facture d'avancement, ce étant la seule façon de gérer le moins salement les choses.
+Extrafield_societe_name_hide = Cacher le nom de la société dans le bloc destinataire
 
 #
 # VAT

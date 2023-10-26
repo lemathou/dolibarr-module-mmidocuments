@@ -392,9 +392,8 @@ class modMMIDocuments extends DolibarrModules
 		$extrafields = new ExtraFields($this->db);
 
 		// Contacts
-        //$extrafields->addExtraField('tva_intra', $langs->trans('VATIntraShort'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', 1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-        //$extrafields->addExtraField('siren', $langs->trans('SIREN'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', 1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-        $extrafields->addExtraField('siret', $langs->trans('SIRET'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', 1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+        $extrafields->addExtraField('societe_name_hide', $langs->trans('Extrafield_societe_name_hide'), 'boolean', 1, 3, 'socpeople', 0, 0, '', "", 1, '', -1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+        $extrafields->addExtraField('siret', $langs->trans('SIRET'), 'varchar', 1, 20, 'socpeople', 0, 0, '', "", 1, '', -1, '', '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
 
 		// Propales
         $extrafields->addExtraField('acompte_aff', $langs->trans('Extrafield_acompte_aff'), 'boolean', 1, 3, 'propal', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_acompte_aff'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
