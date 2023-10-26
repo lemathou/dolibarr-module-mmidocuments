@@ -1,0 +1,5 @@
+/* Hack long filename */
+.documentpreview .fa-search-plus {
+	position: absolute;
+	float: left;
+}
