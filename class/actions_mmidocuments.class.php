@@ -268,7 +268,7 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 				}
 				$object->fetch(NULL, $parameters['refname']);
 				//var_dump($object); die();
-				$parameters['filename'] = $object->pdf_filename().'.pdf';
+				$parameters['filename'] = $this->pdf_filename($object).'.pdf';
 			}
 		}
 
@@ -278,5 +278,37 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 			$this->errors[] = $error;
 			return -1;
 		}
+	}
+
+	/**
+	 * Get filename for PDF
+	 *
+	 * @return string
+	 */
+	public function pdf_filename($object)
+	{
+		global $conf;
+		
+		if (empty($conf->global->MMIDOCUMENT_PDF_RENAME))
+			return;
+		
+		if (empty($object->thirdparty))
+			$object->fetch_thirdparty();
+		
+		$thirdparty = $object->thirdparty;
+		$file_e = [];
+		$file_e[] = dol_sanitizeFileName($object->ref);
+		if (!empty($conf->global->MMIDOCUMENT_PDF_RENAME_MYSOC)) {
+			global $mysoc;
+			$file_e[] = $mysoc->name;
+		}
+		if (!empty($conf->global->MMIDOCUMENT_PDF_RENAME_THIRDPARTY)) {
+			$file_e[] = $thirdparty->name;
+		}
+		if (!empty($conf->global->MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER) && !empty($object->ref_customer)) {
+			$file_e[] = $object->ref_customer;
+		}
+		$filename = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', iconv('UTF-8','ASCII//TRANSLIT', implode('-', $file_e))));
+		return !empty($conf->global->MMIDOCUMENT_PDF_RENAME_UPPERCASE) ?strtoupper($filename) :$filename;
 	}
 }
