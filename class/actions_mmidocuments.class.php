@@ -241,4 +241,42 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 			return -1;
 		}
 	}
+
+	function downloadDocument($parameters, &$object, &$action, $hookmanager)
+	{
+		global $langs, $user, $conf;
+		
+		$error = '';
+
+		if ($this->in_context($parameters, 'document')) {
+			//var_dump($parameters); die();
+			if (in_array($parameters['modulepart'], ['propal', 'commande', 'facture'])
+				&& !empty($parameters['refname']) && $parameters['original_file'] == $parameters['refname'].'/'.$parameters['refname'].'.pdf'
+				&& !empty($conf->global->MMIDOCUMENT_PDF_RENAME)) {
+				global $db;
+				if ($parameters['modulepart'] == 'propal') {
+					require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+					$object = new Propal($db);
+				}
+				elseif ($parameters['modulepart'] == 'commande') {
+					require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+					$object = new Commande($db);
+				}
+				elseif ($parameters['modulepart'] == 'facture') {
+					require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+					$object = new Facture($db);
+				}
+				$object->fetch(NULL, $parameters['refname']);
+				//var_dump($object); die();
+				$parameters['filename'] = $object->pdf_filename().'.pdf';
+			}
+		}
+
+		if (!$error) {
+			return isset($ret) ?$ret :0; // or return 1 to replace standard code
+		} else {
+			$this->errors[] = $error;
+			return -1;
+		}
+	}
 }
