@@ -45,6 +45,8 @@ $arrayofparameters = array(
 	'MMIDOCUMENT_PDF_RENAME_MYSOC'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_THIRDPARTY'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER'=>array('type'=>'yesno','enabled'=>1),
+	'MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_DESC'=>array('type'=>'yesno','enabled'=>1),
+	'MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF'=>array('type'=>'yesno','enabled'=>1),
 );
 
 require_once('../../mmicommon/admin/mmisetup_1.inc.php');
