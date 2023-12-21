@@ -29,24 +29,40 @@ require_once '../main_load.inc.php';
 $arrayofparameters = array(
 	'DOCUMENT_SHOW_COMPLEMENT'=>array('type'=>'yesno', 'enabled'=>1),
 	'DOCUMENT_COMPLEMENT_TITLE'=>array('type'=>'yesno', 'enabled'=>1),
+
+	'MMIDOCUMENT_ADMIN_SHIPPING'=>array('type'=>'separator','enabled'=>1),
 	'SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME'=>array('type'=>'yesno','enabled'=>1),
 	'SHIPPING_PDF_HIDE_BATCH'=>array('type'=>'yesno','enabled'=>1), // MMI Hack
 	'SHIPPING_PDF_HIDE_DELIVERY_DATE'=>array('type'=>'yesno','enabled'=>1), // MMI Hack
 	'MAIN_GENERATE_SHIPMENT_WITH_PICTURE'=>array('type'=>'yesno','enabled'=>1),
 	'MMI_SHIPPING_PDF_MESSAGE'=>array('type'=>'html','enabled'=>1),
+
+	'MMIDOCUMENT_ADMIN_DOCUMENTS_ALL'=>array('type'=>'separator','enabled'=>1),
+	'MAIN_DOCUMENTS_QTY_COL_WIDTH'=>array('type'=>'int','enabled'=>1),
+	'MAIN_DOCUMENTS_VAT_COL_WIDTH'=>array('type'=>'int','enabled'=>1),
+	
 	'MMI_DOCUMENT_PDF_SEPARATE_CONTACTS'=>array('type'=>'yesno','enabled'=>1),
 	'MMI_FIELD_CGV_CPV'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_CGP_TITLE'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY'=>array('type'=>'yesno','enabled'=>1),
 	'MMI_DOCUMENT_PDF_HEIGHT_CALC'=>array('type'=>'yesno','enabled'=>1),
-	'INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW'=>array('type'=>'yesno','enabled'=>1),
+
+	'MMIDOCUMENT_ADMIN_PDF_RENAME'=>array('type'=>'separator','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_UPPERCASE'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_MYSOC'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_THIRDPARTY'=>array('type'=>'yesno','enabled'=>1),
 	'MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER'=>array('type'=>'yesno','enabled'=>1),
+
+	'MMIDOCUMENT_ADMIN_SUPPLIER_PROPOSAL'=>array('type'=>'separator','enabled'=>1),
 	'MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_DESC'=>array('type'=>'yesno','enabled'=>1),
 	'MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF'=>array('type'=>'yesno','enabled'=>1),
+
+	'MMIDOCUMENT_ADMIN_SITUATION_INVOICES'=>array('type'=>'separator','enabled'=>1),
+	'MMIDOCUMENT_SITUATION_SHOW_CUMUL'=>array('type'=>'yesno','enabled'=>1),
+	'INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW'=>array('type'=>'yesno','enabled'=>1),
+	'SITUATION_DISPLAY_100P_PER_LINE_PDF'=>array('type'=>'yesno','enabled'=>1),
+
 );
 
 require_once('../../mmicommon/admin/mmisetup_1.inc.php');

@@ -242,6 +242,134 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 		}
 	}
 
+	function defineColumnField($parameters, &$pdf, &$action, $hookmanager)
+	{
+		global $langs, $user, $conf;
+		
+		$error = '';
+
+		if ($this->in_context($parameters, 'pdfgeneration')) {
+
+			// Largeur colonne VAT
+			if (!empty($conf->global->MAIN_DOCUMENTS_VAT_COL_WIDTH)) {
+				$pdf->cols['vat']['width'] = $conf->global->MAIN_DOCUMENTS_VAT_COL_WIDTH;
+			}
+
+			// Largeur colonne Quantité
+			if (!empty($conf->global->MAIN_DOCUMENTS_QTY_COL_WIDTH)) {
+				$pdf->cols['qty']['width'] = $conf->global->MAIN_DOCUMENTS_QTY_COL_WIDTH;
+			}
+
+			// Unité juste après quantité
+			$pdf->cols['unit']['rank'] = $pdf->cols['qty']['rank']+1;
+
+			// Factures de situation
+			if ($pdf->situationinvoice) {
+				if ($conf->global->MMIDOCUMENT_SITUATION_SHOW_CUMUL) {
+					$pdf->cols['progress']['title'] = ['textkey'=>'ProgressAndCumulated'];
+
+					$pdf->cols['totalexcltax']['title'] = ['textkey'=>'TotalHTSituation'];
+				}
+				if ($conf->global->SITUATION_DISPLAY_100P_PER_LINE_PDF) {
+					$pdf->cols['situationtotal'] = array(
+						// Peu après qté & unité
+						'rank' => $pdf->cols['unit']['rank']+5,
+						'width' => 19, // in mm
+						'status' => true,
+						'title' => array(
+							'textkey' => 'Total HT 100%'
+						),
+						'border-left' => true, // add left line separator
+					);
+				}
+			}
+		}
+
+		if (!$error) {
+			return isset($ret) ?$ret :0; // or return 1 to replace standard code
+		} else {
+			$this->errors[] = $error;
+			return -1;
+		}
+	}
+
+	// @todo terminer la migration proprement
+	function NONONOprintStdColumnContent($parameters, &$pdf, &$action, $hookmanager)
+	{
+		global $langs, $user, $conf;
+		
+		// $parameters = array(
+		// 	'curY' => &$curY,
+		// 	'columnText' => $columnText,
+		// 	'colKey' => $colKey,
+		// 	'pdf' => &$pdf,
+		// );
+
+		$error = '';
+
+		if ($this->in_context($parameters, 'pdfgeneration')) {
+			if ($parameters['colKey'] == 'totalexcltax') {
+				$total_excl_tax = pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails);
+				// MMI Hack
+				if ($total_excl_tax != ' ' && $object->lines[$i]->situation_percent>0) {
+					if (!empty($conf->global->SITUATION_DISPLAY_DIFF_ON_PDF)) {
+						$total_excl_tax = $total_excl_tax.'<br />('.number_format(round(str_replace(',', '.', $qty)*str_replace([' ', ','], ['', '.'], $up_excl_tax)*str_replace(',', '.', $object->lines[$i]->situation_percent)/100, 2), 2, ',', ' ').')';
+					}
+					else {
+						$total_excl_tax = number_format(round($object->lines[$i]->total_ht, 2), 2, ',', ' ');
+					}
+				}
+				
+			}
+		}
+
+		if (!$error) {
+			return isset($ret) ?$ret :0; // or return 1 to replace standard code
+		} else {
+			$this->errors[] = $error;
+			return -1;
+		}
+	}
+
+	function printPDFline($parameters, &$pdftpl, &$action, $hookmanager)
+	{
+		global $langs, $user, $conf;
+
+		// $parameters = array(
+		// 	'object' => $object,
+		// 	'i' => $i,
+		// 	'pdf' =>& $pdf,
+		// 	'curY' =>& $curY,
+		// 	'nexY' =>& $nexY,
+		// 	'outputlangs' => $outputlangs,
+		// 	'hidedetails' => $hidedetails
+		// );
+
+		$error = '';
+
+		extract($parameters, EXTR_SKIP);
+
+		// MMI Hack
+		// Situation Total
+		if ($pdftpl->getColumnStatus('situationtotal') && !empty($conf->global->SITUATION_DISPLAY_100P_PER_LINE_PDF)) {
+			if ($object->lines[$i]->qty>0 && $object->lines[$i]->subprice>0) {
+				$situationtotal = number_format(round($object->lines[$i]->qty*$object->lines[$i]->subprice, 2), 2, ',', ' ');
+			}
+			else {
+				$situationtotal = '';
+			}
+			$pdftpl->printStdColumnContent($pdf, $curY, 'situationtotal', $situationtotal);
+			$nexY = max($pdf->GetY(), $nexY);
+		}
+
+		if (!$error) {
+			return isset($ret) ?$ret :0; // or return 1 to replace standard code
+		} else {
+			$this->errors[] = $error;
+			return -1;
+		}
+	}
+
 	function downloadDocument($parameters, &$object, &$action, $hookmanager)
 	{
 		global $langs, $user, $conf;

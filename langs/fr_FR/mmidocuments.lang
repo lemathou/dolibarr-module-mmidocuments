@@ -28,25 +28,39 @@ ModuleMMIDocumentsDesc = Nouveaux modèles de PDF pour les Propales, Commandes, 
 MMIDocumentsSetup = MMIDocuments setup
 Settings = Settings
 MMIDocumentsSetupPage = MMIDocuments setup page
-DOCUMENT_SHOW_COMPLEMENT = Afficher les informations complémentaires
 MMIDOCUMENTS_MYPARAM1Tooltip = Afficher les CGV, etc. dans les documents PDF : Propales, Commandes, Factures, etc.
+
+DOCUMENT_SHOW_COMPLEMENT = Afficher les informations complémentaires
 MMI_DOCUMENT_PDF_SEPARATE_CONTACTS = Séparer l'affichage des contacts de livraison et facturation
 MMI_FIELD_CGV_CPV = Ajout du champ CGV/CPV dans les propales, commandes et factures
+
+MMIDOCUMENT_ADMIN_SHIPPING = Expéditions
 SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME = Cacher poids et volume dans les expéditions
 SHIPPING_PDF_HIDE_BATCH = Cacher les numéros de lot dans les expéditions
 SHIPPING_PDF_HIDE_DELIVERY_DATE = Cacher la date d'expédition dans les expéditions
 MAIN_GENERATE_SHIPMENT_WITH_PICTURE = Affiche les images produit dans les expéditions
 MMI_SHIPPING_PDF_MESSAGE = Message affiché dans le cadre note des expéditions
 MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY = Gestion de l'exonération de TVA dans les documents (Propales, Commandes, Factures)
-INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW = Afficher la retenue de garantie cumulée sur les factures
-MMIDOCUMENT_PDF_RENAME = Renommer les PDF des documents
-MMIDOCUMENT_PDF_RENAME_UPPERCASE = PDF en majuscule
-MMIDOCUMENT_PDF_RENAME_MYSOC = Ajouter le nom de notre société dans le PDF
-MMIDOCUMENT_PDF_RENAME_THIRDPARTY = Ajouter le nom du client dans le PDF
-MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER = AJouter la référence client dans le PDF
 
+MMIDOCUMENT_ADMIN_PDF_RENAME = Renommage des PDF
+MMIDOCUMENT_PDF_RENAME = Renommer les PDF des documents
+MMIDOCUMENT_PDF_RENAME_UPPERCASE = Nom de fichier PDF en majuscule
+MMIDOCUMENT_PDF_RENAME_MYSOC = Ajouter le nom de notre société dans le nom de fichier PDF
+MMIDOCUMENT_PDF_RENAME_THIRDPARTY = Ajouter le nom du client dans le nom de fichier PDF
+MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER = AJouter la référence client dans le nom de fichier PDF
+
+MMIDOCUMENT_ADMIN_DOCUMENTS_ALL = Tous les documents
+MAIN_DOCUMENTS_QTY_COL_WIDTH = Largeur de colonne QTY en mm dans les documents (défaut 16, recommandé 11)
+MAIN_DOCUMENTS_VAT_COL_WIDTH = Largeur de colonne VAT en mm dans les documents (défaut 16, recommandé 11)
+
+MMIDOCUMENT_ADMIN_SUPPLIER_PROPOSAL = Demandes de prix fournisseur
 MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_DESC = Cacher les descriptions de produit dans les demandes de prix
 MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF = Cacher les références produit dans les demandes de prix
+
+MMIDOCUMENT_ADMIN_SITUATION_INVOICES = Factures de situation
+MMIDOCUMENT_SITUATION_SHOW_CUMUL = Afficher les cumuls dans les factures de situation
+INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW = Afficher la retenue de garantie cumulée sur les factures
+SITUATION_DISPLAY_100P_PER_LINE_PDF = Afficher la colonne du total 100%% dans les lignes de factures de situation
 
 #
 # About page
@@ -100,3 +114,6 @@ VATIsNotUsedForIslands = TVA non applicable – art. 259-1 du CGI (îles)
 VATIsNotUsedForExport = TVA non applicable – art. 259-1 du CGI (Export hors UE)
 
 RetainedWarrantyCumulated = Retenue de garantie cumulée
+
+TotalHTSituation = Total HT (Cumulé)
+ProgressAndCumulated = Progression (Cumulé)
