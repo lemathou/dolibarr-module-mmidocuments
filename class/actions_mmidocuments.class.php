@@ -36,7 +36,6 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 		$error = '';
 		
 		// VATIsNotUsedForInvoice
-		
 		if (!empty($conf->global->MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY)) {
 			$mysoc = $parameters['mysoc'];
 			$emetteur = $parameters['emetteur'];
@@ -82,6 +81,10 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 					// Société (AE, etc.)
 					else
 						$vat_info = $langs->transnoentities("VATIsNotUsedForInvoice");
+				}
+				// TOT = 0 (brouillon)
+				elseif ($object->total_ttc == 0) {
+					$vat_info = '';
 				}
 				// TVA
 				elseif (!($object->total_tva == 0)) {
