@@ -22,6 +22,9 @@
 dol_include_once('custom/mmicommon/class/mmi_actions.class.php');
 dol_include_once('/mbietransactions/class/mmi_etransactions.class.php');
 
+require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
 
@@ -36,7 +39,7 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 		$error = '';
 		
 		// VATIsNotUsedForInvoice
-		if (!empty($conf->global->MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY)) {
+		if (getDolGlobalInt('MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY')) {
 			$mysoc = $parameters['mysoc'];
 			$emetteur = $parameters['emetteur'];
 			$object = $parameters['object'];
@@ -63,7 +66,7 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 			//var_dump($client->tva_intra && in_array($adresse_fac->country_code, $countries_eu)); die();
 
 			// Mentions TVA
-			$countries_eu = explode(',', !empty($conf->global->MAIN_COUNTRIES_IN_EEC) ?$conf->global->MAIN_COUNTRIES_IN_EEC :'AT,BE,BG,CY,CZ,DE,DK,EE,ES,FI,FR,GB,GR,HR,NL,HU,IE,IM,IT,LT,LU,LV,MC,MT,PL,PT,RO,SE,SK,SI,UK');
+			$countries_eu = explode(',', ($MAIN_COUNTRIES_IN_EEC=getDolGlobalString('MAIN_COUNTRIES_IN_EEC')) ?$MAIN_COUNTRIES_IN_EEC :'AT,BE,BG,CY,CZ,DE,DK,EE,ES,FI,FR,GB,GR,HR,NL,HU,IE,IM,IT,LT,LU,LV,MC,MT,PL,PT,RO,SE,SK,SI,UK');
 			// Pas de TVA
 
 			//var_dump($client); die();
@@ -254,13 +257,13 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 		if ($this->in_context($parameters, 'pdfgeneration')) {
 
 			// Largeur colonne VAT
-			if (!empty($conf->global->MAIN_DOCUMENTS_VAT_COL_WIDTH)) {
-				$pdf->cols['vat']['width'] = $conf->global->MAIN_DOCUMENTS_VAT_COL_WIDTH;
+			if ($width=getDolGlobalString('MAIN_DOCUMENTS_VAT_COL_WIDTH')) {
+				$pdf->cols['vat']['width'] = $width;
 			}
 
 			// Largeur colonne Quantité
-			if (!empty($conf->global->MAIN_DOCUMENTS_QTY_COL_WIDTH)) {
-				$pdf->cols['qty']['width'] = $conf->global->MAIN_DOCUMENTS_QTY_COL_WIDTH;
+			if ($width=getDolGlobalString('MAIN_DOCUMENTS_QTY_COL_WIDTH')) {
+				$pdf->cols['qty']['width'] = $width;
 			}
 
 			// Unité juste après quantité
@@ -268,12 +271,12 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 
 			// Factures de situation
 			if ($pdf->situationinvoice) {
-				if ($conf->global->MMIDOCUMENT_SITUATION_SHOW_CUMUL) {
+				if (getDolGlobalInt('MMIDOCUMENT_SITUATION_SHOW_CUMUL')) {
 					$pdf->cols['progress']['title'] = ['textkey'=>'ProgressAndCumulated'];
 
 					$pdf->cols['totalexcltax']['title'] = ['textkey'=>'TotalHTSituation'];
 				}
-				if ($conf->global->SITUATION_DISPLAY_100P_PER_LINE_PDF) {
+				if (getDolGlobalInt('SITUATION_DISPLAY_100P_PER_LINE_PDF')) {
 					$pdf->cols['situationtotal'] = array(
 						// Peu après qté & unité
 						'rank' => $pdf->cols['unit']['rank']+5,
@@ -315,7 +318,7 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 				$total_excl_tax = pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails);
 				// MMI Hack
 				if ($total_excl_tax != ' ' && $object->lines[$i]->situation_percent>0) {
-					if (!empty($conf->global->SITUATION_DISPLAY_DIFF_ON_PDF)) {
+					if (getDolGlobalInt('SITUATION_DISPLAY_DIFF_ON_PDF')) {
 						$total_excl_tax = $total_excl_tax.'<br />('.number_format(round(str_replace(',', '.', $qty)*str_replace([' ', ','], ['', '.'], $up_excl_tax)*str_replace(',', '.', $object->lines[$i]->situation_percent)/100, 2), 2, ',', ' ').')';
 					}
 					else {
@@ -354,7 +357,7 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 
 		// MMI Hack
 		// Situation Total
-		if ($pdftpl->getColumnStatus('situationtotal') && !empty($conf->global->SITUATION_DISPLAY_100P_PER_LINE_PDF)) {
+		if ($pdftpl->getColumnStatus('situationtotal') && getDolGlobalInt('SITUATION_DISPLAY_100P_PER_LINE_PDF')) {
 			if ($object->lines[$i]->qty>0 && $object->lines[$i]->subprice>0) {
 				$situationtotal = number_format(round($object->lines[$i]->qty*$object->lines[$i]->subprice, 2), 2, ',', ' ');
 			}
@@ -375,31 +378,28 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 
 	function downloadDocument($parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs, $user, $conf;
+		global $langs, $user, $db;
 		
 		$error = '';
 
 		if ($this->in_context($parameters, 'document')) {
-			//var_dump($parameters); die();
-			if (in_array($parameters['modulepart'], ['propal', 'commande', 'facture'])
-				&& !empty($parameters['refname']) && $parameters['original_file'] == $parameters['refname'].'/'.$parameters['refname'].'.pdf'
-				&& !empty($conf->global->MMIDOCUMENT_PDF_RENAME)) {
-				global $db;
-				if ($parameters['modulepart'] == 'propal') {
-					require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
-					$object = new Propal($db);
+			if (in_array($parameters['modulepart'], ['propal', 'propale', 'commande', 'facture'])) {
+				$ref = array_shift(explode('/', $parameters['original_file']));
+				// Rename PDF
+				if (getDolGlobalInt('MMIDOCUMENT_PDF_RENAME') && $parameters['original_file'] == $ref.'/'.$ref.'.pdf') {
+					if (in_array($parameters['modulepart'], ['propal', 'propale'])) {
+						$object = new Propal($db);
+					}
+					elseif ($parameters['modulepart'] == 'commande') {
+						$object = new Commande($db);
+					}
+					elseif ($parameters['modulepart'] == 'facture') {
+						$object = new Facture($db);
+					}
+					$object->fetch(NULL, $ref);
+					//var_dump($object); die();
+					$parameters['filename'] = $this->pdf_filename($object).'.pdf';
 				}
-				elseif ($parameters['modulepart'] == 'commande') {
-					require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-					$object = new Commande($db);
-				}
-				elseif ($parameters['modulepart'] == 'facture') {
-					require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-					$object = new Facture($db);
-				}
-				$object->fetch(NULL, $parameters['refname']);
-				//var_dump($object); die();
-				$parameters['filename'] = $this->pdf_filename($object).'.pdf';
 			}
 		}
 
@@ -420,7 +420,7 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 	{
 		global $conf;
 		
-		if (empty($conf->global->MMIDOCUMENT_PDF_RENAME))
+		if (!getDolGlobalInt('MMIDOCUMENT_PDF_RENAME'))
 			return;
 		
 		if (empty($object->thirdparty))
@@ -429,17 +429,17 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 		$thirdparty = $object->thirdparty;
 		$file_e = [];
 		$file_e[] = dol_sanitizeFileName($object->ref);
-		if (!empty($conf->global->MMIDOCUMENT_PDF_RENAME_MYSOC)) {
+		if (getDolGlobalInt('MMIDOCUMENT_PDF_RENAME_MYSOC')) {
 			global $mysoc;
 			$file_e[] = $mysoc->name;
 		}
-		if (!empty($conf->global->MMIDOCUMENT_PDF_RENAME_THIRDPARTY)) {
+		if (getDolGlobalInt('MMIDOCUMENT_PDF_RENAME_THIRDPARTY')) {
 			$file_e[] = $thirdparty->name;
 		}
-		if (!empty($conf->global->MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER) && !empty($object->ref_customer)) {
+		if (getDolGlobalInt('MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER') && !empty($object->ref_customer)) {
 			$file_e[] = $object->ref_customer;
 		}
 		$filename = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', iconv('UTF-8','ASCII//TRANSLIT', implode('-', $file_e))));
-		return !empty($conf->global->MMIDOCUMENT_PDF_RENAME_UPPERCASE) ?strtoupper($filename) :$filename;
+		return getDolGlobalInt('MMIDOCUMENT_PDF_RENAME_UPPERCASE') ?strtoupper($filename) :$filename;
 	}
 }
