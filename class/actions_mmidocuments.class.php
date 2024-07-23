@@ -443,3 +443,6 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 		return getDolGlobalInt('MMIDOCUMENT_PDF_RENAME_UPPERCASE') ?strtoupper($filename) :$filename;
 	}
 }
+
+ActionsMMIDocuments::__init();
+
