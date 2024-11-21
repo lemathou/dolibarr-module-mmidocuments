@@ -35,7 +35,8 @@ MMI_DOCUMENT_PDF_SEPARATE_CONTACTS = Séparer l'affichage des contacts de livrai
 MMI_FIELD_CGV_CPV = Ajout du champ CGV/CPV dans les propales, commandes et factures
 
 MMIDOCUMENT_ADMIN_SHIPPING = Expéditions
-SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME = Cacher poids et volume dans les expéditions
+SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME = Masquer la colonne "poids et volume" dans les expéditions
+SHIPPING_PDF_HIDE_VOLUME = Masquer les volumes (conserver les poids) dans les expéditions
 SHIPPING_PDF_HIDE_BATCH = Cacher les numéros de lot dans les expéditions
 SHIPPING_PDF_HIDE_DELIVERY_DATE = Cacher la date d'expédition dans les expéditions
 MAIN_GENERATE_SHIPMENT_WITH_PICTURE = Affiche les images produit dans les expéditions

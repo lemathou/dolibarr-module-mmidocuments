@@ -32,6 +32,7 @@ $arrayofparameters = array(
 
 	'MMIDOCUMENT_ADMIN_SHIPPING'=>array('type'=>'separator','enabled'=>1),
 	'SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME'=>array('type'=>'yesno','enabled'=>1),
+	'SHIPPING_PDF_HIDE_VOLUME'=>array('type'=>'yesno','enabled'=>1),
 	'SHIPPING_PDF_HIDE_BATCH'=>array('type'=>'yesno','enabled'=>1), // MMI Hack
 	'SHIPPING_PDF_HIDE_DELIVERY_DATE'=>array('type'=>'yesno','enabled'=>1), // MMI Hack
 	'MAIN_GENERATE_SHIPMENT_WITH_PICTURE'=>array('type'=>'yesno','enabled'=>1),
