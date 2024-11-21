@@ -51,6 +51,7 @@ MMIDOCUMENT_PDF_RENAME_THIRDPARTY = Ajouter le nom du client dans le nom de fich
 MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER = AJouter la référence client dans le nom de fichier PDF
 
 MMIDOCUMENT_ADMIN_DOCUMENTS_ALL = Tous les documents
+MMIDOCUMENTS_PDF_COMMERCIAL = Afficher le commercial dans l'encart expéditeur
 MAIN_DOCUMENTS_QTY_COL_WIDTH = Largeur de colonne QTY en mm dans les documents (défaut 16, recommandé 11)
 MAIN_DOCUMENTS_VAT_COL_WIDTH = Largeur de colonne VAT en mm dans les documents (défaut 16, recommandé 11)
 

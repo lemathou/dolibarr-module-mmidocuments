@@ -40,6 +40,7 @@ $arrayofparameters = array(
 	'SHIPPING_PDF_DISPLAY_AMOUNT_HT'=>array('type'=>'yesno','enabled'=>1),
 
 	'MMIDOCUMENT_ADMIN_DOCUMENTS_ALL'=>array('type'=>'separator','enabled'=>1),
+	'MMIDOCUMENTS_PDF_COMMERCIAL'=>array('type'=>'yesno','enabled'=>1),
 	'MAIN_DOCUMENTS_QTY_COL_WIDTH'=>array('type'=>'int','enabled'=>1),
 	'MAIN_DOCUMENTS_VAT_COL_WIDTH'=>array('type'=>'int','enabled'=>1),
 	
