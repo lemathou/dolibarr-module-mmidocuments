@@ -66,6 +66,8 @@ $arrayofparameters = array(
 	'INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW'=>array('type'=>'yesno','enabled'=>1),
 	'SITUATION_DISPLAY_100P_PER_LINE_PDF'=>array('type'=>'yesno','enabled'=>1),
 
+	'MMI_DOCUMENT_DISPLAY_NOPDF'=>array('type'=>'separator','enabled'=>1),
+	'MMI_DOCUMENT_LINE_EXTRAFIELDS_ALTVIEW'=>array('type'=>'yesno','enabled'=>1),
 );
 
 require_once('../../mmicommon/admin/mmisetup_1.inc.php');

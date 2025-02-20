@@ -18,9 +18,9 @@
 #
 
 # Module label 'ModuleMMIDocumentsName'
-ModuleMMIDocumentsName = Documents commerciaux PDF
+ModuleMMIDocumentsName = Documents commerciaux & PDF
 # Module description 'ModuleMMIDocumentsDesc'
-ModuleMMIDocumentsDesc = Nouveaux modèles de PDF pour les Propales, Commandes, Factures, Expéditions...
+ModuleMMIDocumentsDesc = Options d'affichage documents et nouveux modèles de PDF
 
 #
 # Admin page
@@ -63,6 +63,9 @@ MMIDOCUMENT_ADMIN_SITUATION_INVOICES = Factures de situation
 MMIDOCUMENT_SITUATION_SHOW_CUMUL = Afficher les cumuls dans les factures de situation
 INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW = Afficher la retenue de garantie cumulée sur les factures
 SITUATION_DISPLAY_100P_PER_LINE_PDF = Afficher la colonne du total 100%% dans les lignes de factures de situation
+
+MMI_DOCUMENT_DISPLAY_NOPDF = Options d'affichage dans les documents (pas PDF)
+MMI_DOCUMENT_LINE_EXTRAFIELDS_ALTVIEW = Affichage alternatif des champs extrafields dans les lignes de document (on considère que dans la vue card, les lignes de documents sont en vue list et pas en vue view)
 
 #
 # About page
