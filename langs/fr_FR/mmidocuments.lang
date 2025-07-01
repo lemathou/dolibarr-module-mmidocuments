@@ -26,7 +26,6 @@ ModuleMMIDocumentsDesc = Options d'affichage documents et nouveux modèles de PD
 # Admin page
 #
 MMIDocumentsSetup = MMIDocuments setup
-Settings = Settings
 MMIDocumentsSetupPage = MMIDocuments setup page
 MMIDOCUMENTS_MYPARAM1Tooltip = Afficher les CGV, etc. dans les documents PDF : Propales, Commandes, Factures, etc.
 
@@ -72,7 +71,6 @@ MMIDOCUMENTS_PDF_EXPORT_ORIGINE = Afficher l'origine dans les lignes de document
 #
 # About page
 #
-About = About
 MMIDocumentsAbout = About MMIDocuments
 MMIDocumentsAboutPage = MMIDocuments about page
 
