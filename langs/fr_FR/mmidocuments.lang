@@ -55,7 +55,7 @@ MAIN_DOCUMENTS_QTY_COL_WIDTH = Largeur de colonne QTY en mm dans les documents (
 MAIN_DOCUMENTS_VAT_COL_WIDTH = Largeur de colonne VAT en mm dans les documents (défaut 16, recommandé 11)
 
 MMIDOCUMENT_ADMIN_SUPPLIER_PROPOSAL = Demandes de prix fournisseur
-MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_DESC = Cacher les descriptions de produit dans les demandes de prix
+MAIN_DOCUMENTS_HIDE_DESCRIPTION_FOR_SUPPLIER_PROPOSAL = Cacher les descriptions de produit dans les demandes de prix
 MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF = Cacher les références produit dans les demandes de prix
 
 MMIDOCUMENT_ADMIN_SITUATION_INVOICES = Factures de situation
