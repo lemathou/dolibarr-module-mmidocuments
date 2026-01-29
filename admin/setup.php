@@ -69,6 +69,13 @@ $arrayofparameters = array(
 
 	'MMI_DOCUMENT_DISPLAY_NOPDF'=>array('type'=>'separator','enabled'=>1),
 	'MMI_DOCUMENT_LINE_EXTRAFIELDS_ALTVIEW'=>array('type'=>'yesno','enabled'=>1),
+
+	// Display references
+	'MMI_DOCUMENTS_DISPLAY_REF'=>array('type'=>'separator', 'enabled'=>1),
+	'MMI_DOCUMENTS_DISPLAY_REF_ACTIVE'=>array('type'=>'yesno', 'enabled'=>1),
+	'MMI_DOCUMENTS_DISPLAY_REF_OWN'=>array('type'=>'multiarray', 'list'=>['propal'=>'Propal', 'order'=>'Order', 'invoice'=>'Invoice', 'order_supplier'=>'SupplierOrder'], 'enabled'=>1),
+	'MMI_DOCUMENTS_DISPLAY_REF_SUPPLIER'=>array('type'=>'multiarray', 'list'=>['propal'=>'Propal', 'order'=>'Order', 'invoice'=>'Invoice', 'order_supplier'=>'SupplierOrder'], 'enabled'=>1),
+	'MMI_DOCUMENTS_DISPLAY_REF_MARCHE_HIDE'=>array('type'=>'yesno', 'enabled'=>1),
 );
 
 require_once('../../mmicommon/admin/mmisetup_1.inc.php');
