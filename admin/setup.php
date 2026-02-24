@@ -59,7 +59,7 @@ $arrayofparameters = array(
 	'MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER'=>array('type'=>'yesno','enabled'=>1),
 
 	'MMIDOCUMENT_ADMIN_SUPPLIER_PROPOSAL'=>array('type'=>'separator','enabled'=>1),
-	'MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_DESC'=>array('type'=>'yesno','enabled'=>1),
+	'MAIN_DOCUMENTS_HIDE_DESCRIPTION_FOR_SUPPLIER_PROPOSAL'=>array('type'=>'yesno','enabled'=>1),
 	'MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF'=>array('type'=>'yesno','enabled'=>1),
 
 	'MMIDOCUMENT_ADMIN_SITUATION_INVOICES'=>array('type'=>'separator','enabled'=>1),
