@@ -73,7 +73,7 @@ $arrayofparameters = array(
 	// Display references
 	'MMI_DOCUMENTS_DISPLAY_REF'=>array('type'=>'separator', 'enabled'=>1),
 	'MMI_DOCUMENTS_DISPLAY_REF_ACTIVE'=>array('type'=>'yesno', 'enabled'=>1),
-	'MMI_DOCUMENTS_DISPLAY_REF_OWN'=>array('type'=>'multiarray', 'list'=>['propal'=>'Propal', 'order'=>'Order', 'invoice'=>'Invoice', 'order_supplier'=>'SupplierOrder'], 'enabled'=>1),
+	'MMI_DOCUMENTS_DISPLAY_REF_OWN'=>array('type'=>'multiarray', 'list'=>['propal'=>'Propal', 'commande'=>'Order', 'facture'=>'Invoice', 'order_supplier'=>'SupplierOrder'], 'enabled'=>1),
 	'MMI_DOCUMENTS_DISPLAY_REF_SUPPLIER'=>array('type'=>'multiarray', 'list'=>['propal'=>'Propal', 'order'=>'Order', 'invoice'=>'Invoice', 'order_supplier'=>'SupplierOrder'], 'enabled'=>1),
 	'MMI_DOCUMENTS_DISPLAY_REF_MARCHE_HIDE'=>array('type'=>'yesno', 'enabled'=>1),
 );

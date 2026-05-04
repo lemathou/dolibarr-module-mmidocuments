@@ -72,7 +72,7 @@ class modMMIDocuments extends DolibarrModules
 		$this->editor_url = 'https://iprospective.fr';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-		$this->version = '1.1';
+		$this->version = '1.2.0';
 		// Url to the file with your last numberversion of this module
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 
@@ -118,6 +118,7 @@ class modMMIDocuments extends DolibarrModules
 			'hooks' => array(
 				'pdfgeneration',
 				'document',
+				'shipmentlist',
 				//   'data' => array(
 				//       'hookcontext1',
 				//       'hookcontext2',
@@ -404,12 +405,12 @@ class modMMIDocuments extends DolibarrModules
 
 		// Commandes
         $extrafields->addExtraField('cgv_cpv', $langs->trans('Extrafield_cgv_cpv'), 'html', 10, NULL, 'commande', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_cgv_cpv'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled && $conf->global->MMI_FIELD_CGV_CPV');
-        $extrafields->addExtraField('pdf_show_productline_ref', $langs->trans('Extrafield_pdf_show_productline_ref'), 'select', 1, 3, 'propal', 0, 0, '', ['options'=>['2'=>'Default', '0'=>'No', '1'=>'Yes']], 1, '', 3, $langs->trans('ExtrafieldToolTip_pdf_show_productline_ref'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+        $extrafields->addExtraField('pdf_show_productline_ref', $langs->trans('Extrafield_pdf_show_productline_ref'), 'select', 1, 3, 'commande', 0, 0, '', ['options'=>['2'=>'Default', '0'=>'No', '1'=>'Yes']], 1, '', 3, $langs->trans('ExtrafieldToolTip_pdf_show_productline_ref'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
 
 		// Factures
         $extrafields->addExtraField('cgv_cpv', $langs->trans('Extrafield_cgv_cpv'), 'html', 10, NULL, 'facture', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_cgv_cpv'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled && $conf->global->MMI_FIELD_CGV_CPV');
         $extrafields->addExtraField('avoirs_as_acompte', $langs->trans('Extrafield_avoirs_as_acompte'), 'boolean', 1, 3, 'facture', 0, 0, '', "", 1, '', 3, $langs->trans('ExtrafieldToolTip_avoirs_as_acompte'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
-        $extrafields->addExtraField('pdf_show_productline_ref', $langs->trans('Extrafield_pdf_show_productline_ref'), 'select', 1, 3, 'propal', 0, 0, '', ['options'=>['2'=>'Default', '0'=>'No', '1'=>'Yes']], 1, '', 3, $langs->trans('ExtrafieldToolTip_pdf_show_productline_ref'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
+        $extrafields->addExtraField('pdf_show_productline_ref', $langs->trans('Extrafield_pdf_show_productline_ref'), 'select', 1, 3, 'facture', 0, 0, '', ['options'=>['2'=>'Default', '0'=>'No', '1'=>'Yes']], 1, '', 3, $langs->trans('ExtrafieldToolTip_pdf_show_productline_ref'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');
 
 		// Demande de prix = Proposition fournisseur
 		$extrafields->addExtraField('pdf_show_productline_ref', $langs->trans('Extrafield_pdf_show_productline_ref'), 'select', 1, 3, 'supplier_proposal', 0, 0, '', ['options'=>['2'=>'Default', '0'=>'No', '1'=>'Yes']], 1, '', 3, $langs->trans('ExtrafieldToolTip_pdf_show_productline_ref'), '', $conf->entity, 'mmidocuments@mmidocuments', '$conf->mmidocuments->enabled');

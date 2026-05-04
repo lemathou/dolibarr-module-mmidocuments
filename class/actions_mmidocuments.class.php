@@ -412,6 +412,181 @@ class ActionsMMIDocuments extends MMI_Actions_1_0
 	}
 
 	/**
+	 * Add a "PDF merge (duplex)" entry in the shipment list mass action menu.
+	 * The standard "PDF merge" stays in place; duplex is a sibling.
+	 */
+	function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
+	{
+		global $langs;
+
+		if (!$this->in_context($parameters, 'shipmentlist'))
+			return 0;
+
+		$langs->load('mmidocuments@mmidocuments');
+
+		$label = img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans('PDFMergeDuplex');
+		$this->resprints = '<option value="builddoc_duplex" data-html="'.dol_escape_htmltag($label).'">'.$label.'</option>';
+
+		return 0;
+	}
+
+	/**
+	 * Handle the 'builddoc_duplex' mass action: same merge as core builddoc,
+	 * but inserts a blank page after every shipment whose PDF has an odd
+	 * page count, so subsequent shipments always start on a recto when
+	 * printing duplex.
+	 *
+	 * Note: USE_PDFTK_FOR_PDF_CONCAT is intentionally not honored here —
+	 * the duplex variant always uses the FPDI/TCPDI path.
+	 */
+	function doMassActions($parameters, &$object, &$action, $hookmanager)
+	{
+		global $conf, $db, $user, $langs;
+
+		if (!$this->in_context($parameters, 'shipmentlist'))
+			return 0;
+
+		if (($parameters['massaction'] ?? '') !== 'builddoc_duplex')
+			return 0;
+
+		$error = '';
+
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+		require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
+
+		$langs->load('mmidocuments@mmidocuments');
+		$langs->load('exports');
+
+		$toselect = $parameters['toselect'] ?? array();
+		$uploaddir = $parameters['uploaddir'] ?? '';
+		$diroutputmassaction = $parameters['diroutputmassaction'] ?? '';
+
+		if (empty($toselect) || empty($uploaddir) || empty($diroutputmassaction))
+			return 0;
+
+		if (empty($user->rights->expedition->lire)) {
+			$this->errors[] = $langs->trans('NotEnoughPermissions');
+			return -1;
+		}
+
+		// Fetch all selected shipments and keep instances around — we may need
+		// to (re)generate their PDF if it's missing on disk.
+		$listofobjects = array();
+		$listofobjectref = array();
+		foreach ($toselect as $toselectid) {
+			$tmp = new Expedition($db);
+			if ($tmp->fetch($toselectid) > 0) {
+				$listofobjects[$toselectid] = $tmp;
+				$listofobjectref[$toselectid] = $tmp->ref;
+			}
+		}
+
+		$arrayofinclusion = array();
+		foreach ($listofobjectref as $tmppdf) {
+			$arrayofinclusion[] = '^'.preg_quote(dol_sanitizeFileName($tmppdf), '/').'\.pdf$';
+		}
+		foreach ($listofobjectref as $tmppdf) {
+			$arrayofinclusion[] = '^'.preg_quote(dol_sanitizeFileName($tmppdf), '/').'_[a-zA-Z0-9\-\_\'\&\.]+\.pdf$';
+		}
+		$listoffiles = dol_dir_list($uploaddir, 'all', 1, implode('|', $arrayofinclusion), '\.meta$|\.png', 'date', SORT_DESC, 0, true);
+
+		// Per-ref lookup so we know which shipments are missing a PDF.
+		// Iteration preserves the user's selection order in the merged output.
+		// Expedition::generateDocument() handles the empty-model fallback itself
+		// (object's model_pdf → EXPEDITION_ADDON_PDF → 'rouget'), so we just pass ''.
+		$files = array();
+		$generated = 0;
+		foreach ($listofobjectref as $id => $ref) {
+			$sanitized = dol_sanitizeFileName($ref);
+			$found = null;
+			foreach ($listoffiles as $filefound) {
+				if (strstr($filefound['name'], $sanitized)) {
+					$found = $uploaddir.'/'.$sanitized.'/'.$filefound['name'];
+					break;
+				}
+			}
+
+			if ($found === null) {
+				$exp = $listofobjects[$id];
+				if (empty($exp->thirdparty)) $exp->fetch_thirdparty();
+				$r = $exp->generateDocument('', $langs);
+				if ($r > 0) {
+					$newlist = dol_dir_list($uploaddir.'/'.$sanitized, 'files', 0, '\.pdf$', '\.meta$|\.png', 'date', SORT_DESC);
+					foreach ($newlist as $filefound) {
+						if (strstr($filefound['name'], $sanitized)) {
+							$found = $uploaddir.'/'.$sanitized.'/'.$filefound['name'];
+							break;
+						}
+					}
+					if ($found !== null) $generated++;
+				} else {
+					setEventMessages($exp->error, $exp->errors, 'warnings');
+				}
+			}
+
+			if ($found !== null) $files[] = $found;
+		}
+
+		if (count($files) == 0) {
+			setEventMessages($langs->trans('NoPDFAvailableForDocGenAmongChecked'), null, 'errors');
+			return 1;
+		}
+
+		if ($generated > 0) {
+			setEventMessages($langs->trans('PDFMergeDuplexGenerated', $generated), null, 'mesgs');
+		}
+
+		$formatarray = pdf_getFormat();
+		$format = array($formatarray['width'], $formatarray['height']);
+
+		$pdf = pdf_getInstance($format);
+		if (class_exists('TCPDF')) {
+			$pdf->setPrintHeader(false);
+			$pdf->setPrintFooter(false);
+		}
+		$pdf->SetFont(pdf_getPDFFont($langs));
+		if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION'))
+			$pdf->SetCompression(false);
+
+		foreach ($files as $file) {
+			$pagecount = $pdf->setSourceFile($file);
+			$lastsize = null;
+			for ($i = 1; $i <= $pagecount; $i++) {
+				$tplidx = $pdf->importPage($i);
+				$s = $pdf->getTemplatesize($tplidx);
+				$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+				$pdf->useTemplate($tplidx);
+				$lastsize = $s;
+			}
+			// Duplex padding: blank page if this shipment has an odd page count
+			if (($pagecount % 2) == 1 && $lastsize) {
+				$pdf->AddPage($lastsize['h'] > $lastsize['w'] ? 'P' : 'L');
+			}
+		}
+
+		dol_mkdir($diroutputmassaction);
+
+		$filename = strtolower(dol_sanitizeFileName($langs->transnoentities('Sendings')));
+		$filename = preg_replace('/\s/', '_', $filename).'_duplex';
+
+		$now = dol_now();
+		$outputfile = $diroutputmassaction.'/'.$filename.'_'.dol_print_date($now, 'dayhourlog').'.pdf';
+
+		$pdf->Output($outputfile, 'F');
+		dolChmod($outputfile);
+
+		setEventMessages($langs->trans('FileSuccessfullyBuilt', $filename.'_'.dol_print_date($now, 'dayhourlog')), null, 'mesgs');
+
+		if (!$error)
+			return 1;
+
+		$this->errors[] = $error;
+		return -1;
+	}
+
+	/**
 	 * Get filename for PDF
 	 *
 	 * @return string

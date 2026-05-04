@@ -132,3 +132,9 @@ TotalHTSituation = Total HT (Cumulé)
 ProgressAndCumulated = Progression (Cumulé)
 
 ExportInfo = Informations légales pour l'export
+
+#
+# Mass actions
+#
+PDFMergeDuplex = Fusion PDF (recto/verso)
+PDFMergeDuplexGenerated = %s PDF d'expédition généré(s) à la volée avant fusion
