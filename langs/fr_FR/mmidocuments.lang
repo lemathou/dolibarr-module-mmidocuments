@@ -20,7 +20,7 @@
 # Module label 'ModuleMMIDocumentsName'
 ModuleMMIDocumentsName = Documents commerciaux & PDF
 # Module description 'ModuleMMIDocumentsDesc'
-ModuleMMIDocumentsDesc = Options d'affichage documents et nouveux modèles de PDF
+ModuleMMIDocumentsDesc = Options d'affichage documents et nouveaux modèles de PDF
 
 #
 # Admin page
