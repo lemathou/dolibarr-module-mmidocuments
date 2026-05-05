@@ -20,14 +20,13 @@
 # Module label 'ModuleMMIDocumentsName'
 ModuleMMIDocumentsName = Documents commerciaux & PDF
 # Module description 'ModuleMMIDocumentsDesc'
-ModuleMMIDocumentsDesc = Options d'affichage documents et nouveux modèles de PDF
+ModuleMMIDocumentsDesc = Options d'affichage documents et nouveaux modèles de PDF
 
 #
 # Admin page
 #
 MMIDocumentsSetup = MMIDocuments setup
 MMIDocumentsSetupPage = MMIDocuments setup page
-MMIDOCUMENTS_MYPARAM1Tooltip = Afficher les CGV, etc. dans les documents PDF : Propales, Commandes, Factures, etc.
 
 DOCUMENT_SHOW_COMPLEMENT = Afficher les informations complémentaires
 MMI_DOCUMENT_PDF_SEPARATE_CONTACTS = Séparer l'affichage des contacts de livraison et facturation
@@ -79,17 +78,6 @@ MMI_DOCUMENTS_DISPLAY_REF_MARCHE_HIDE = Ne pas afficher la référence du produi
 #
 MMIDocumentsAbout = About MMIDocuments
 MMIDocumentsAboutPage = MMIDocuments about page
-
-#
-# Sample page
-#
-MyPageName = My page name
-
-#
-# Sample widget
-#
-MyWidget = My widget
-MyWidgetDescription = My widget description
 
 #
 # Données

@@ -18,39 +18,108 @@
 #
 
 # Module label 'ModuleMMIDocumentsName'
-ModuleMMIDocumentsName = MMIDocuments
+ModuleMMIDocumentsName = Commercial documents & PDF
 # Module description 'ModuleMMIDocumentsDesc'
-ModuleMMIDocumentsDesc = MMIDocuments description
+ModuleMMIDocumentsDesc = Document display options and additional PDF templates
 
 #
 # Admin page
 #
 MMIDocumentsSetup = MMIDocuments setup
-Settings = Settings
 MMIDocumentsSetupPage = MMIDocuments setup page
-MMIDOCUMENTS_MYPARAM1 = My param 1
-MMIDOCUMENTS_MYPARAM1Tooltip = My param 1 tooltip
-MMIDOCUMENTS_MYPARAM2=My param 2
-MMIDOCUMENTS_MYPARAM2Tooltip=My param 2 tooltip
 
+DOCUMENT_SHOW_COMPLEMENT = Show additional information
+MMI_DOCUMENT_PDF_SEPARATE_CONTACTS = Separate display of shipping and billing contacts
+MMI_FIELD_CGV_CPV = Add a CGV/CPV field on proposals, orders and invoices
+
+MMIDOCUMENT_ADMIN_SHIPPING = Shipments
+SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME = Hide the "weight and volume" column on shipments
+SHIPPING_PDF_HIDE_VOLUME = Hide volumes (keep weights) on shipments
+SHIPPING_PDF_HIDE_BATCH = Hide batch numbers on shipments
+SHIPPING_PDF_HIDE_DELIVERY_DATE = Hide shipping date on shipments
+MAIN_GENERATE_SHIPMENT_WITH_PICTURE = Display product pictures on shipments
+MMI_SHIPPING_PDF_MESSAGE = Message displayed in the note frame of shipments
+MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY = Manage VAT exemption mentions on documents (Proposals, Orders, Invoices)
+
+MMIDOCUMENT_ADMIN_PDF_RENAME = PDF renaming
+MMIDOCUMENT_PDF_RENAME = Rename document PDFs
+MMIDOCUMENT_PDF_RENAME_UPPERCASE = Use uppercase in PDF filename
+MMIDOCUMENT_PDF_RENAME_MYSOC = Add our company name in the PDF filename
+MMIDOCUMENT_PDF_RENAME_THIRDPARTY = Add the customer name in the PDF filename
+MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER = Add the customer reference in the PDF filename
+
+MMIDOCUMENT_ADMIN_DOCUMENTS_ALL = All documents
+MMIDOCUMENTS_PDF_COMMERCIAL = Show the sales rep in the sender block
+MAIN_DOCUMENTS_QTY_COL_WIDTH = Width of the QTY column in mm on documents (default 16, recommended 11)
+MAIN_DOCUMENTS_VAT_COL_WIDTH = Width of the VAT column in mm on documents (default 16, recommended 11)
+
+MMIDOCUMENT_ADMIN_SUPPLIER_PROPOSAL = Supplier price requests
+MAIN_DOCUMENTS_HIDE_DESCRIPTION_FOR_SUPPLIER_PROPOSAL = Hide product descriptions on price requests
+MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF = Hide product references on price requests
+
+MMIDOCUMENT_ADMIN_SITUATION_INVOICES = Situation invoices
+MMIDOCUMENT_SITUATION_SHOW_CUMUL = Show cumulated values on situation invoices
+INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW = Show cumulated retained warranty on invoices
+SITUATION_DISPLAY_100P_PER_LINE_PDF = Show the 100%% total column on situation invoice lines
+
+MMI_DOCUMENT_DISPLAY_NOPDF = Document display options (non-PDF)
+MMI_DOCUMENT_LINE_EXTRAFIELDS_ALTVIEW = Alternative display of extrafields on document lines (in card view, document lines are considered to be in list view, not view mode)
+
+MMIDOCUMENTS_PDF_EXPORT_ORIGINE = Show product origin on document lines for export
+
+MMI_DOCUMENTS_DISPLAY_REF = Product references display
+MMI_DOCUMENTS_DISPLAY_REF_ACTIVE = Enable advanced management of product references display
+MMI_DOCUMENTS_DISPLAY_REF_OWN = Show the own product reference by default on the following document types
+MMI_DOCUMENTS_DISPLAY_REF_SUPPLIER = Show the supplier product reference by default on the following document types
+MMI_DOCUMENTS_DISPLAY_REF_MARCHE_HIDE = Do not display the product reference on public tenders
 
 #
 # About page
 #
-About = About
 MMIDocumentsAbout = About MMIDocuments
 MMIDocumentsAboutPage = MMIDocuments about page
 
 #
-# Sample page
+# Data
 #
-MyPageName = My page name
+DocumentMoreInfo = Additional information
+DocumentMoreInfoCGP = Specific terms
+DocumentMoreInfoDecennale = Ten-year warranty
+PaymentAcompte = Down payment on signature: %s
+PaymentAcomptePourcent = Down payment on signature: %s, i.e. %s
+CreditNotesReceivedBefore = Down payments previously paid
+ToPay = To pay
 
 #
-# Sample widget
+# Extrafields
 #
-MyWidget = My widget
-MyWidgetDescription = My widget description
+Extrafield_cgv_cpv = CGV / CPV
+ExtrafieldToolTip_cgv_cpv = General / specific terms of sale, displayed at the bottom of the PDF document (option in MMIDocuments module)
+Extrafield_acompte_aff = Show down payment on PDF document
+Extrafield_avoirs_as_acompte = Show credit notes as a down payment
+ExtrafieldToolTip_avoirs_as_acompte = Especially useful when a credit note issued from a down payment has been used for a progress invoice — the least messy way to handle it.
+Extrafield_societe_name_hide = Hide the company name in the recipient block
+Extrafield_pdf_show_productline_ref = Show product reference on document lines
+Extrafield_pdf_show_productline_supplier_ref = Show supplier reference on document lines
+
+#
+# VAT
+#
+VATIsNotUsedForTransitaire = VAT exemption - Freight forwarder
+VATIsNotUsedForDOM = VAT exemption pursuant to article 294 of the French General Tax Code (DOM)
+VATIsNotUsedForTOM = VAT exemption pursuant to article 262 I of the French General Tax Code (TOM)
+VATIsNotUsedForFR = Reverse charge, VAT exemption pursuant to art. 262 ter, I of the French General Tax Code
+VATIsNotUsedForFRAppelOffresSSTraitant = VAT due by the taxable customer - reverse charge pursuant to article 242 nonies A, I-13° of annex II to the French General Tax Code
+VATIsNotUsedForEU = VAT exemption pursuant to art. 262 ter, I of the French General Tax Code
+VATIsNotUsedForIslands = VAT not applicable – art. 259-1 of the French General Tax Code (islands)
+VATIsNotUsedForExport = VAT not applicable – art. 259-1 of the French General Tax Code (Export outside EU)
+
+RetainedWarrantyCumulated = Cumulated retained warranty
+
+TotalHTSituation = Total excl. tax (cumulated)
+ProgressAndCumulated = Progress (cumulated)
+
+ExportInfo = Legal mentions for export
 
 #
 # Mass actions
