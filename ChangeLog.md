@@ -30,3 +30,7 @@ Other additions in the 1.x series:
 * PDF duplex merge: new **Fusion PDF (recto/verso)** mass action on the shipment list — merges the selected shipments' PDFs and inserts a blank page after each shipment with an odd page count, so the next shipment always starts on a recto when printing in duplex mode.
 * Auto-generates missing shipment PDFs on the fly before the duplex merge (uses the shipment's `model_pdf`, falling back to `EXPEDITION_ADDON_PDF`, then `'rouget'`).
 * New hook context `shipmentlist`; new hooks `addMoreMassActions` and `doMassActions`.
+
+## Unreleased
+
+- Lang: drop modulebuilder boilerplate keys (`MMIDOCUMENTS_MYPARAM*`, `MyPageName`, `MyWidget`, `MyWidgetDescription`) that were never referenced. Note: `MMIDocumentsSetup` / `MMIDocumentsSetupPage` / `MMIDocumentsAbout` / `MMIDocumentsAboutPage` are kept — they're built dynamically by string concatenation in `mmicommon/admin/mmisetup_1.inc.php` and `mmiabout_1.inc.php`.
