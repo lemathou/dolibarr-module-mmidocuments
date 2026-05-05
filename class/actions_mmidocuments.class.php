@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2023 Mathieu Moulin iProspetcive <contact@iprospective.fr>
+ * Copyright © 2023 Mathieu Moulin iProspective <contact@iprospective.fr>
  *
  * This file is part of MMIDOcuments.
  *

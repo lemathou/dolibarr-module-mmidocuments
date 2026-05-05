@@ -37,3 +37,4 @@ Other additions in the 1.x series:
 - Module descriptor: fix `description` / `descriptionlong` to point at the `ModuleMMIDocumentsDesc` translation key instead of the literal placeholder `"MMIDocumentsDescription"` (which doesn't exist in any lang file), and fix typo (`nouveux` → `nouveaux`) in fr_FR.
 - Module descriptor: set `module_parts['substitutions']` to 0 (no `core/substitutions/` directory ships with the module).
 - Cleanup: remove disabled `NONONOprintStdColumnContent` hook in `actions_mmidocuments.class.php` (function name self-prefixed to disable, marked `@todo terminer la migration proprement`, never reached).
+- Copyright header: fix typo `iProspetcive` → `iProspective` in `actions_mmidocuments.class.php`.
