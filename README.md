@@ -1,175 +1,101 @@
-# MMIDOCUMENTS FOR [DOLIBARR ERP CRM](https://www.dolibarr.org)
+# MMIDocuments — Documents MMI : modèles PDF/ODT, champs complémentaires et options d'impression des documents de vente et d'expédition.
 
-## Features
+> Module Dolibarr **MMIDocuments** (version 1.2.0), branche `20.0`.
 
-Ensemble d'options d'affichage et de personnalisations sur les documents commerciaux (propales, commandes, factures, expéditions, demandes de prix fournisseur), regroupées sous une page de configuration unique (`Setup → Modules → MMIDocuments`).
+Options d'affichage documents et nouveaux modèles de PDF
 
-### Mentions de TVA et exonérations
+## Fonctionnalités
 
-Sélection automatique d'une mention légale d'exonération de TVA en bas de PDF en fonction du tiers et du contexte (option `MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY`) :
+### Fonctionnalités principales
 
-- Transitaire (article CGI dédié).
-- DOM (art. 294 CGI).
-- TOM (art. 262 I CGI).
-- France métropolitaine — autoliquidation (art. 262 ter, I CGI).
-- France — sous-traitance appel d'offre (art. 242 nonies A annexe II).
-- UE intracommunautaire (art. 262 ter, I CGI).
-- Îles non-soumises (art. 259-1 CGI).
-- Export hors UE (art. 259-1 CGI).
+- Champs complémentaires documents : acompte affiché, CGV/CPV, référence ligne produit, référence fournisseur, SIRET, nom société masqué, avoirs en acompte.
+- Options PDF/ODT : affichage du complément, export origine, PDF commercial, largeur des colonnes quantité/TVA.
+- Options d'expédition : masquer poids/volume/lot/date de livraison, afficher le montant HT, images, message.
+- Hooks de documents et substitutions ODT.
+- Modèles de documents du fork (`pdf_sponge`, `pdf_crabe`, `pdf_octopus`, `doc_generic_invoice_odt`).
 
-Détection automatique selon le pays du tiers facturé / livré et son numéro de TVA intra ; surcharge possible via les champs ajoutés sur les contacts (TVA intra, SIRET, SIREN, et flag « point relais »).
+### Pages
 
-### Bordereaux d'expédition
+- `admin/about.php`
+- `admin/setup.php`
+- `mmidocumentsindex.php`
 
-- Cacher la colonne poids/volume, ou le volume seul (`SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME`, `SHIPPING_PDF_HIDE_VOLUME`).
-- Cacher les numéros de lot (`SHIPPING_PDF_HIDE_BATCH`).
-- Cacher la date d'expédition (`SHIPPING_PDF_HIDE_DELIVERY_DATE`).
-- Afficher les images produit (`MAIN_GENERATE_SHIPMENT_WITH_PICTURE`).
-- Message HTML configurable dans le cadre note (`MMI_SHIPPING_PDF_MESSAGE`).
-- Afficher le montant HT (`SHIPPING_PDF_DISPLAY_AMOUNT_HT`).
-- **Fusion PDF (recto/verso)** : nouvelle action de masse sur la liste des expéditions qui fusionne les PDF sélectionnés en insérant une page blanche après chaque expédition à pages impaires. L'expédition suivante repart toujours sur un recto à l'impression duplex. Les PDF manquants sont auto-générés via `Expedition::generateDocument()` avant fusion.
+### Configuration
 
-### Factures de situation
+| Constante | Type | Rôle |
+|---|---|---|
+| `DOCUMENT_SHOW_COMPLEMENT` | yesno | Afficher les informations complémentaires |
+| `DOCUMENT_COMPLEMENT_TITLE` | yesno |  |
+| `MMIDOCUMENT_ADMIN_SHIPPING` | separator | Expéditions |
+| `SHIPPING_PDF_HIDE_WEIGHT_AND_VOLUME` | yesno | Masquer la colonne "poids et volume" dans les expéditions |
+| `SHIPPING_PDF_HIDE_VOLUME` | yesno | Masquer les volumes (conserver les poids) dans les expéditions |
+| `SHIPPING_PDF_HIDE_BATCH` | yesno | Cacher les numéros de lot dans les expéditions |
+| `SHIPPING_PDF_HIDE_DELIVERY_DATE` | yesno | Cacher la date d'expédition dans les expéditions |
+| `MAIN_GENERATE_SHIPMENT_WITH_PICTURE` | yesno | Affiche les images produit dans les expéditions |
+| `MMI_SHIPPING_PDF_MESSAGE` | html | Message affiché dans le cadre note des expéditions |
+| `SHIPPING_PDF_DISPLAY_AMOUNT_HT` | yesno |  |
+| `MMIDOCUMENT_ADMIN_DOCUMENTS_ALL` | separator | Tous les documents |
+| `MMIDOCUMENTS_PDF_EXPORT_ORIGINE` | yesno | Afficher l'origine dans les lignes de documents pour l'Export |
+| `MMIDOCUMENTS_PDF_COMMERCIAL` | yesno | Afficher le commercial dans l'encart expéditeur |
+| `MAIN_DOCUMENTS_QTY_COL_WIDTH` | int | Largeur de colonne QTY en mm dans les documents (défaut 16, recommandé 11) |
+| `MAIN_DOCUMENTS_VAT_COL_WIDTH` | int | Largeur de colonne VAT en mm dans les documents (défaut 16, recommandé 11) |
+| `MMI_DOCUMENT_PDF_SEPARATE_CONTACTS` | yesno | Séparer l'affichage des contacts de livraison et facturation |
+| `MMI_FIELD_CGV_CPV` | yesno | Ajout du champ CGV/CPV dans les propales, commandes et factures |
+| `MMIDOCUMENT_CGP_TITLE` | yesno |  |
+| `MMIDOCUMENTS_VAT_NOTIF_PDF_DISPLAY` | yesno | Gestion de l'exonération de TVA dans les documents (Propales, Commandes, Factures) |
+| `MMI_DOCUMENT_PDF_HEIGHT_CALC` | yesno |  |
+| `MMIDOCUMENT_ADMIN_PDF_RENAME` | separator | Renommage des PDF |
+| `MMIDOCUMENT_PDF_RENAME` | yesno | Renommer les PDF des documents |
+| `MMIDOCUMENT_PDF_RENAME_UPPERCASE` | yesno | Nom de fichier PDF en majuscule |
+| `MMIDOCUMENT_PDF_RENAME_MYSOC` | yesno | Ajouter le nom de notre société dans le nom de fichier PDF |
+| `MMIDOCUMENT_PDF_RENAME_THIRDPARTY` | yesno | Ajouter le nom du client dans le nom de fichier PDF |
+| `MMIDOCUMENT_PDF_RENAME_REF_CUSTOMER` | yesno | AJouter la référence client dans le nom de fichier PDF |
+| `MMIDOCUMENT_ADMIN_SUPPLIER_PROPOSAL` | separator | Demandes de prix fournisseur |
+| `MAIN_DOCUMENTS_HIDE_DESCRIPTION_FOR_SUPPLIER_PROPOSAL` | yesno | Cacher les descriptions de produit dans les demandes de prix |
+| `MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF` | yesno | Cacher les références produit dans les demandes de prix |
+| `MMIDOCUMENT_ADMIN_SITUATION_INVOICES` | separator | Factures de situation |
+| `MMIDOCUMENT_SITUATION_SHOW_CUMUL` | yesno | Afficher les cumuls dans les factures de situation |
+| `INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW` | yesno | Afficher la retenue de garantie cumulée sur les factures |
+| `SITUATION_DISPLAY_100P_PER_LINE_PDF` | yesno | Afficher la colonne du total 100%% dans les lignes de factures de situation |
+| `MMI_DOCUMENT_DISPLAY_NOPDF` | separator | Options d'affichage dans les documents (pas PDF) |
+| `MMI_DOCUMENT_LINE_EXTRAFIELDS_ALTVIEW` | yesno | Affichage alternatif des champs extrafields dans les lignes de document (on considère que dans la vue card, les lignes de documents sont en vue list et pas en vue view) |
+| `MMI_DOCUMENTS_DISPLAY_REF` | separator | Affichage des références produit |
+| `MMI_DOCUMENTS_DISPLAY_REF_ACTIVE` | yesno | Activer la gestion avancée de l'affichage des références produit |
+| `MMI_DOCUMENTS_DISPLAY_REF_OWN` | multiarray | Afficher la référence propre du produit par défaut dans les types de document suivant |
+| `MMI_DOCUMENTS_DISPLAY_REF_SUPPLIER` | multiarray | Afficher la référence fournisseur du produit par défaut dans les types de document suivant |
+| `MMI_DOCUMENTS_DISPLAY_REF_MARCHE_HIDE` | yesno | Ne pas afficher la référence du produit sur les appels d'offre |
 
-- Afficher les cumuls (`MMIDOCUMENT_SITUATION_SHOW_CUMUL`).
-- Retenue de garantie cumulée (`INVOICE_RETAINED_WARRANTY_CUMULATED_SHOW`).
-- Colonne « Total 100% » par ligne (`SITUATION_DISPLAY_100P_PER_LINE_PDF`) — utile en marchés publics.
+### Hooks
 
-### Renommage des PDF lors du téléchargement
+- Contextes : `pdfgeneration`, `document`, `shipmentlist`
+- Callbacks : `VATNotificationOnPDF`, `beforePDFCalculation`, `drawInfoTable`, `defineColumnField`, `printPDFline`, `downloadDocument`, `addMoreMassActions`, `doMassActions`, `pdf_filename`
 
-Quand un utilisateur télécharge un PDF de propale / commande / facture, le fichier est renommé selon des composants paramétrables (`MMIDOCUMENT_PDF_RENAME`) :
+### Classes et composants
 
-- Référence du document (toujours).
-- Nom de la société émettrice (`_MYSOC`).
-- Nom du tiers client (`_THIRDPARTY`).
-- Référence client (`_REF_CUSTOMER`).
-- Forçage en majuscules (`_UPPERCASE`).
+- `class/actions_mmidocuments.class.php`
+- `lib/mmidocuments.lib.php`
 
-Tout est translittéré ASCII pour éviter les caractères problématiques dans les noms de fichiers.
+## Prérequis
 
-### Affichage des références produit dans les lignes de document
-
-Activable via `MMI_DOCUMENTS_DISPLAY_REF_ACTIVE`, configurable par type de document :
-
-- Référence propre du produit : choisir parmi propale / commande / facture / commande fournisseur (`MMI_DOCUMENTS_DISPLAY_REF_OWN`).
-- Référence fournisseur : idem (`MMI_DOCUMENTS_DISPLAY_REF_SUPPLIER`).
-- Cacher la référence sur les appels d'offre / marchés publics (`MMI_DOCUMENTS_DISPLAY_REF_MARCHE_HIDE`), souvent demandé par les acheteurs publics.
-
-Surcharge ligne par ligne via les extrafields `pdf_show_productline_ref` et `pdf_show_productline_supplier_ref` (Yes / No / Default).
-
-### Demandes de prix fournisseur
-
-- Cacher la description produit (`MAIN_DOCUMENTS_HIDE_DESCRIPTION_FOR_SUPPLIER_PROPOSAL`).
-- Cacher la référence produit (`MAIN_GENERATE_SUPPLIER_PROPOSAL_HIDE_REF`).
-
-### Mise en page commune à tous les documents
-
-- Afficher le commercial dans le bloc émetteur (`MMIDOCUMENTS_PDF_COMMERCIAL`).
-- Afficher l'origine dans les lignes pour l'export (`MMIDOCUMENTS_PDF_EXPORT_ORIGINE`).
-- Largeur des colonnes Quantité et TVA configurables (`MAIN_DOCUMENTS_QTY_COL_WIDTH`, `MAIN_DOCUMENTS_VAT_COL_WIDTH`).
-- Séparation visuelle des contacts livraison et facturation (`MMI_DOCUMENT_PDF_SEPARATE_CONTACTS`).
-- Calcul précis de la hauteur des zones du PDF en fonction des champs présents — évite les chevauchements (`MMI_DOCUMENT_PDF_HEIGHT_CALC`).
-- Affichage alternatif des extrafields dans les lignes de document (`MMI_DOCUMENT_LINE_EXTRAFIELDS_ALTVIEW`).
-
-### Conditions générales / particulières (CGV / CPV)
-
-Extrafield `cgv_cpv` ajouté sur propales, commandes et factures (activable via `MMI_FIELD_CGV_CPV`) : champ HTML libre affiché en bas de document PDF. Utile pour les conditions particulières propres à chaque marché.
-
-Le titre « Conditions particulières » apparaît automatiquement (`MMIDOCUMENT_CGP_TITLE`) ; même chose pour le bloc « Informations complémentaires » (`DOCUMENT_SHOW_COMPLEMENT`, `DOCUMENT_COMPLEMENT_TITLE`).
-
-### Acomptes et avoirs
-
-- Extrafield `acompte_aff` sur propale : forcer l'affichage de l'acompte sur le PDF.
-- Extrafield `avoirs_as_acompte` sur facture : afficher les avoirs comme un acompte (« Acomptes précédemment réglés ») au lieu de la mention standard. Pratique pour les factures d'avancement après utilisation d'un avoir issu d'un acompte.
-
-### Champs supplémentaires sur les contacts
-
-Extrafields ajoutés sur les contacts (`socpeople`) :
-
-- `tva_intra` — numéro de TVA intracommunautaire du contact (utilisé pour les mentions d'exonération).
-- `siren`, `siret` — identifiants entreprise du contact.
-- `societe_name_hide` — masquer le nom de la société dans le bloc destinataire (cas livraison particulier).
-- `p_company` — nom alternatif de société pour les points relais (consommé par MMIWorkflow).
-
-## Dependencies
-
-- `modMMICommon`
-
-PHP ≥ 7.4, Dolibarr ≥ 11.
-
-Other external modules are available on [Dolistore.com](https://www.dolistore.com).
-
-## Translations
-
-Translations can be completed manually by editing files into directories *langs*.
-
-<!--
-This module contains also a sample configuration for Transifex, under the hidden directory [.tx](.tx), so it is possible to manage translation using this service.
-
-For more informations, see the [translator's documentation](https://wiki.dolibarr.org/index.php/Translator_documentation).
-
-There is a [Transifex project](https://transifex.com/projects/p/dolibarr-module-template) for this module.
--->
-
-<!--
+- Dolibarr >= 11.0 (branche `20.0` : Dolibarr 20.0).
+- Modules MMI : `mmicommon`. **`mmicommon` doit être activé en premier.**
 
 ## Installation
 
-### From the ZIP file and GUI interface
+1. Copier le module dans `htdocs/custom/mmidocuments` :
 
-- If you get the module in a zip file (like when downloading it from the market place [Dolistore](https://www.dolistore.com)), go into
-menu ```Home - Setup - Modules - Deploy external module``` and upload the zip file.
+   ```sh
+   cd htdocs/custom
+   git clone <dépôt> mmidocuments
+   ```
 
-Note: If this screen tell you there is no custom directory, check your setup is correct:
+2. Dans Dolibarr : **Configuration → Modules**, activer d'abord `mmicommon`, puis ce module.
+3. Vérifier les permissions dans la fiche des utilisateurs concernés.
 
-- In your Dolibarr installation directory, edit the ```htdocs/conf/conf.php``` file and check that following lines are not commented:
+## Licence
 
-    ```php
-    //$dolibarr_main_url_root_alt ...
-    //$dolibarr_main_document_root_alt ...
-    ```
+GPLv3 ou ultérieure — voir `COPYING`. Documentation sous GFDL.
 
-- Uncomment them if necessary (delete the leading ```//```) and assign a sensible value according to your Dolibarr installation
+## Changelog
 
-    For example :
-
-    - UNIX:
-        ```php
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = '/var/www/Dolibarr/htdocs/custom';
-        ```
-
-    - Windows:
-        ```php
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = 'C:/My Web Sites/Dolibarr/htdocs/custom';
-        ```
-
-### From a GIT repository
-
-- Clone the repository in ```$dolibarr_main_document_root_alt/mmidocuments```
-
-```sh
-cd ....../custom
-git clone git@github.com:gitlogin/mmidocuments.git mmidocuments
-```
-
-### <a name="final_steps"></a>Final steps
-
-From your browser:
-
-  - Log into Dolibarr as a super-administrator
-  - Go to "Setup" -> "Modules"
-  - You should now be able to find and enable the module
-
--->
-
-## Licenses
-
-### Main code
-
-GPLv3 or (at your option) any later version. See file COPYING for more information.
-
-### Documentation
-
-All texts and readmes are licensed under GFDL.
+Voir [CHANGELOG.md](CHANGELOG.md) (évolutions datées).
